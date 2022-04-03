@@ -42,6 +42,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:timePickerMode="spinner"
+            android:hour="@={vm.alarm.hour}"
+            android:minute="@={vm.alarm.minute}"
             app:layout_constraintBottom_toTopOf="@+id/layoutDetail"
             app:layout_constraintEnd_toStartOf="@id/glRight_95"
             app:layout_constraintHorizontal_bias="0.5"
@@ -74,6 +76,7 @@
                     android:background="@color/transparent"
                     android:imeOptions="actionDone"
                     android:focusableInTouchMode="true"
+                    android:text="@={vm.alarm.name}"
                     android:textAppearance="@style/CustomStyle.Text.TextContent_16"
                     android:textCursorDrawable="@drawable/drawable_edt_cursor_blue" />
 
@@ -100,6 +103,7 @@
                     <CheckBox
                         android:id="@+id/chbMon"
                         style="@style/CustomStyle"
+                        android:checked="@={vm.alarm.repeatMon}"
                         android:button="@drawable/checkbox_custom"
                         android:theme="@style/CheckBoxStyle" />
 
@@ -123,6 +127,7 @@
                     <CheckBox
                         android:id="@+id/chbTue"
                         style="@style/CustomStyle"
+                        android:checked="@={vm.alarm.repeatTue}"
                         android:button="@drawable/checkbox_custom"
                         android:theme="@style/CheckBoxStyle" />
 
@@ -146,6 +151,7 @@
                     <CheckBox
                         android:id="@+id/chbWed"
                         style="@style/CustomStyle"
+                        android:checked="@={vm.alarm.repeatWed}"
                         android:button="@drawable/checkbox_custom"
                         android:theme="@style/CheckBoxStyle" />
 
@@ -169,6 +175,7 @@
                     <CheckBox
                         android:id="@+id/chbThu"
                         style="@style/CustomStyle"
+                        android:checked="@={vm.alarm.repeatThu}"
                         android:button="@drawable/checkbox_custom"
                         android:theme="@style/CheckBoxStyle" />
 
@@ -192,6 +199,7 @@
                     <CheckBox
                         android:id="@+id/chbFri"
                         style="@style/CustomStyle"
+                        android:checked="@={vm.alarm.repeatFri}"
                         android:button="@drawable/checkbox_custom"
                         android:theme="@style/CheckBoxStyle" />
 
@@ -215,6 +223,7 @@
                     <CheckBox
                         android:id="@+id/chbSat"
                         style="@style/CustomStyle"
+                        android:checked="@={vm.alarm.repeatSat}"
                         android:button="@drawable/checkbox_custom"
                         android:theme="@style/CheckBoxStyle" />
 
@@ -237,6 +246,7 @@
 
                     <CheckBox
                         android:id="@+id/chbSun"
+                        android:checked="@={vm.alarm.repeatSun}"
                         style="@style/CustomStyle"
                         android:button="@drawable/checkbox_custom"
                         android:theme="@style/CheckBoxStyle" />
@@ -251,10 +261,13 @@
 
             <TextView
                 android:id="@+id/btnSetAlarm"
+                android:layout_width="match_parent"
+                android:textAlignment="center"
+                android:padding="20dp"
                 style="@style/CustomStyle.Text.TextContent_20.Blue"
                 android:layout_gravity="center"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="30dp"
+                android:onClick="@{fragment::onViewClick}"
                 android:text="@string/set" />
 
         </LinearLayout>

@@ -26,6 +26,9 @@ class Constant {
         const val LIST_ALARM_TITLE_SCREEN = "Alarm"
         const val ADD_ALARM_TITLE_SCREEN = "Add Alarm"
 
+        const val DATABASE_NAME = "AlarmDatabase"
+
+        const val DEFAULT_ALARM_ID = -1
 
     }
 }

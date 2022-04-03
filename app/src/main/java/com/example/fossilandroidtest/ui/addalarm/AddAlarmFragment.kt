@@ -1,18 +1,17 @@
 package com.example.fossilandroidtest.ui.addalarm
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.Rect
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import com.example.fossilandroidtest.R
 import com.example.fossilandroidtest.common.Constant
 import com.example.fossilandroidtest.common.handleClearFocusEditText
 import com.example.fossilandroidtest.databinding.FragmentAddAlarmBinding
 import com.example.fossilandroidtest.ui.base.BaseFragment
+import java.util.*
 
 class AddAlarmFragment : BaseFragment(R.layout.fragment_add_alarm) {
     private val viewModel: AddAlarmViewModel by viewModels()
@@ -22,9 +21,6 @@ class AddAlarmFragment : BaseFragment(R.layout.fragment_add_alarm) {
         get() = Constant.ADD_ALARM_TITLE_SCREEN
     override val isHideAddButton: Boolean
         get() = true
-
-    override fun initInstance() {
-    }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun initView(view: View) {
@@ -54,17 +50,11 @@ class AddAlarmFragment : BaseFragment(R.layout.fragment_add_alarm) {
             if (edtName.isFocused) {
                 val outRect = Rect()
                 edtName.getGlobalVisibleRect(outRect)
-                if (!outRect.contains(event.rawX as Int, event.rawY as Int)) {
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
                     view.handleClearFocusEditText(edtName, txtInputName)
                 }
             }
         }
-    }
-
-    override fun initObserver() {
-    }
-
-    override fun initListener() {
     }
 
     override fun onViewClick(view: View) {
@@ -77,7 +67,7 @@ class AddAlarmFragment : BaseFragment(R.layout.fragment_add_alarm) {
     }
 
     private fun handleAddNewAlarm() {
-        Log.i(TAG, "handleAddNewAlarm: Entry")
+        Log.i(TAG, "handleAddNewAlarm: Entry - Checking ${viewModel.alarm.value}")
     }
 
     private fun handleOnBackPress() {

@@ -251,10 +251,11 @@
 
             <TextView
                 android:id="@+id/btnSetAlarm"
+                android:layout_width="match_parent"
+                android:textAlignment="center"
+                android:padding="20dp"
                 style="@style/CustomStyle.Text.TextContent_20.Blue"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
                 android:text="@string/set" />
             
         </LinearLayout>

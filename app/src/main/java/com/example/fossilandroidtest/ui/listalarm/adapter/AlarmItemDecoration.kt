@@ -1,4 +1,4 @@
-package com.example.fossilandroidtest.common
+package com.example.fossilandroidtest.ui.listalarm.adapter
 
 import android.graphics.Rect
 import android.view.View

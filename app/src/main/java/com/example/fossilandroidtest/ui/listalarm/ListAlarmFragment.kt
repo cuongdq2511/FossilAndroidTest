@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fossilandroidtest.R
-import com.example.fossilandroidtest.common.AlarmItemDecoration
+import com.example.fossilandroidtest.ui.listalarm.adapter.AlarmItemDecoration
 import com.example.fossilandroidtest.common.Constant
 import com.example.fossilandroidtest.common.Event
 import com.example.fossilandroidtest.databinding.FragmentListAlarmBinding
@@ -49,16 +49,11 @@ class ListAlarmFragment : BaseFragment(R.layout.fragment_list_alarm) {
          }
       }
       viewModel.setData()
-
    }
 
    override fun initObserver() {
       Log.i(TAG, "initObserver: Entry")
       viewModel.listAlarmResult.observe(viewLifecycleOwner) { data -> handleListAlarmData(data) }
-   }
-
-   override fun initListener() {
-      Log.i(TAG, "initListener: Entry")
    }
 
    override fun onViewClick(view: View) {

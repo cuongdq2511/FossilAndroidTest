@@ -14,10 +14,10 @@ abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
     open val isHideBackButton: Boolean = false
     open val isHideAddButton: Boolean = false
 
-    abstract fun initInstance()
-    abstract fun initView(view: View)
-    abstract fun initObserver()
-    abstract fun initListener()
+    open fun initInstance() {}
+    open fun initView(view: View) {}
+    open fun initObserver() {}
+    open fun initListener() {}
 
     abstract fun onViewClick(view: View)
 

@@ -6,13 +6,19 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.NonNull
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.fossilandroidtest.common.Constant
 import com.example.fossilandroidtest.receiver.AlarmBroadcastReceiver
 import java.util.*
 
+@Entity(tableName = "AlarmTable")
 data class Alarm(
-    val alarmId: Int = -1,
-    val name: String = "",
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    var alarmId: Int = 0,
+    var name: String = "",
     var hour: Int = -1,
     var minute: Int = -1,
     var isEnable: Boolean = false,
