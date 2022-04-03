@@ -10,8 +10,10 @@ class AlarmViewHolder(private val binding: ItemAlarmBinding) : RecyclerView.View
         binding.run { item = alarmItem }
     }
 
-    fun onBindEvent(alarmItem: Alarm) {
-
+    fun onBindEvent(alarmItem: Alarm, onEnable: (Alarm) -> Unit) {
+        binding.scEnable.setOnCheckedChangeListener { compoundButton, isChecked ->
+            if (isChecked != alarmItem.isEnable) onEnable.invoke(alarmItem)
+        }
     }
 
     companion object {

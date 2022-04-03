@@ -33,6 +33,7 @@ data class Alarm(
     var createdTime: Long = 0
 ) {
 
+
     /**
      * This function will set Alarm Manager for scheduling alarm by specific AlarmId
      * It will send broadcast message to AlarmBroadcastReceiver when time up
@@ -94,9 +95,9 @@ data class Alarm(
     /**
      * This function will get item day which set for repeat alarm
      */
-    fun getDayText(): String {
-        return if (isEveryDay()) Constant.EVERY_DAY else getSpecificRepeatDay()
-    }
+    fun getDayText() = if (isEveryDay()) Constant.EVERY_DAY else getSpecificRepeatDay()
+
+    fun isBlankName() = name.isEmpty() || name.isBlank()
 
     /**
      * This function will get specific day set by user then return text show it

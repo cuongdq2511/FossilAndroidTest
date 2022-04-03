@@ -32,6 +32,7 @@
             app:layout_constraintStart_toEndOf="@id/glLeft_5"
             app:layout_constraintTop_toTopOf="parent"
             android:text="@{item.name}"
+            gone="@{item.isBlankName}"
             app:layout_constraintVertical_chainStyle="spread"
             tools:text="Go to work" />
 

@@ -1,22 +1,18 @@
 package com.example.fossilandroidtest.ui.listalarm
 
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fossilandroidtest.R
-import com.example.fossilandroidtest.ui.listalarm.adapter.AlarmItemDecoration
 import com.example.fossilandroidtest.common.Constant
 import com.example.fossilandroidtest.common.Event
-import com.example.fossilandroidtest.database.AlarmDataSourceImpl
-import com.example.fossilandroidtest.database.AlarmDatabase
 import com.example.fossilandroidtest.databinding.FragmentListAlarmBinding
 import com.example.fossilandroidtest.model.Alarm
-import com.example.fossilandroidtest.respository.AlarmRepository
 import com.example.fossilandroidtest.ui.base.BaseFragment
 import com.example.fossilandroidtest.ui.listalarm.adapter.AlarmAdapter
+import com.example.fossilandroidtest.ui.listalarm.adapter.AlarmItemDecoration
 
 class ListAlarmFragment : BaseFragment(R.layout.fragment_list_alarm) {
 
@@ -36,7 +32,7 @@ class ListAlarmFragment : BaseFragment(R.layout.fragment_list_alarm) {
 
    override fun initInstance() {
       Log.i(TAG, "initInstance: Entry")
-      alarmAdapter = AlarmAdapter()
+      alarmAdapter = AlarmAdapter(onEnable = ::onToggleEnable)
       viewModel.alarmRepository = repo
    }
 
@@ -53,7 +49,7 @@ class ListAlarmFragment : BaseFragment(R.layout.fragment_list_alarm) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
          }
       }
-      viewModel.getListAlarm()
+      viewModel.handleGetListAlarm()
    }
 
    override fun initObserver() {
@@ -75,10 +71,9 @@ class ListAlarmFragment : BaseFragment(R.layout.fragment_list_alarm) {
     * @param data the data of list alarm
     */
    private fun handleListAlarmData(data: Event<List<Alarm>>) {
-      Log.d(TAG, "handleListAlarmData: Entry")
+      Log.i(TAG, "handleListAlarmData: Entry")
       data.getContentIfNotHandled()?.let { listAlarm ->
-         Log.d(TAG, "handleListAlarmData: Checking data of alarm list ${listAlarm.map { it.alarmId }}")
-         /** This time value has been changed */
+         Log.d(TAG, "handleListAlarmData: Data is changed - Checking data of alarm list ${listAlarm.map { it.alarmId }}")
          alarmAdapter.setData(listAlarm)
       }
    }
@@ -86,6 +81,11 @@ class ListAlarmFragment : BaseFragment(R.layout.fragment_list_alarm) {
    private fun handleOnAddButtonClick() {
       Log.i(TAG, "handleOnAddButtonClick: Entry")
       findNavController().navigate(R.id.action_listAlarmFragment_to_addAlarmFragment)
+   }
+
+   private fun onToggleEnable(alarm: Alarm) {
+      Log.i(TAG, "onToggleEnable: Entry - Checking alarm $alarm")
+      viewModel.handleUpdateStatusAlarm(alarm, requireContext().applicationContext)
    }
 
 }

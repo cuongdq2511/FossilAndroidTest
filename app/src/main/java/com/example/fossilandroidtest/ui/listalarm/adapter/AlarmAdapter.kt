@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fossilandroidtest.databinding.ItemAlarmBinding
 import com.example.fossilandroidtest.model.Alarm
 
-class AlarmAdapter(private var listAlarm: List<Alarm> = mutableListOf()) : RecyclerView.Adapter<AlarmViewHolder>() {
+class AlarmAdapter(private var listAlarm: List<Alarm> = mutableListOf(),private val onEnable: (Alarm) -> Unit) : RecyclerView.Adapter<AlarmViewHolder>() {
 
     fun setData(listAlarm: List<Alarm>) {
         this.listAlarm = listAlarm
@@ -23,7 +23,7 @@ class AlarmAdapter(private var listAlarm: List<Alarm> = mutableListOf()) : Recyc
         Log.i(TAG, "onBindViewHolder: Entry - Checking Alarm ID ${item.alarmId}")
         with(holder) {
             onBind(item)
-            onBindEvent(item)
+            onBindEvent(item, onEnable)
         }
     }
 
