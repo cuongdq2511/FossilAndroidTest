@@ -4,7 +4,6 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import com.example.fossilandroidtest.common.Constant
@@ -46,7 +45,12 @@ data class Alarm(
         Log.i(TAG, "cancelAlarm: End")
     }
 
-    private fun initCalendar() = Calendar.getInstance().apply {
+    /**
+     * This function will get calendar with time set by user
+     * If user set time before current time then we will set alarm for the next day
+     * @return Calendar
+     */
+    private fun initCalendar(): Calendar = Calendar.getInstance().apply {
         timeInMillis = System.currentTimeMillis()
         set(Calendar.HOUR_OF_DAY, hour)
         set(Calendar.MINUTE, minute)
