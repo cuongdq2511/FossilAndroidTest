@@ -53,7 +53,7 @@ class ListAlarmFragment : BaseFragment(R.layout.fragment_list_alarm) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
          }
       }
-      viewModel.setData()
+      viewModel.getListAlarm()
    }
 
    override fun initObserver() {

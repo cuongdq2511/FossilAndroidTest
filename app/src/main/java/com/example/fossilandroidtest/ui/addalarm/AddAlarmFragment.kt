@@ -29,7 +29,6 @@ class AddAlarmFragment : BaseFragment(R.layout.fragment_add_alarm) {
         get() = true
 
     override fun initInstance() {
-        super.initInstance()
         viewModel.alarmRepository = repo
     }
 

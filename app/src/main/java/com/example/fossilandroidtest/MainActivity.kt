@@ -1,16 +1,8 @@
 package com.example.fossilandroidtest
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.example.fossilandroidtest.database.AlarmDataSourceImpl
-import com.example.fossilandroidtest.database.AlarmDatabase
-import com.example.fossilandroidtest.model.Alarm
-import com.example.fossilandroidtest.respository.AlarmRepository
 
 class MainActivity : AppCompatActivity() {
 
