@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FossilAndroidTest</string>
+    <string name="content_wake_up">HEY BUDDY! IT IS TIME TO WAKE UP!</string>
 </resources>
