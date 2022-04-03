@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import com.example.fossilandroidtest.common.Constant
 import com.example.fossilandroidtest.receiver.AlarmBroadcastReceiver
@@ -19,11 +20,12 @@ data class Alarm(
         Log.i(TAG, "schedule: Entry - Checking Alarm: $this")
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmBroadcastReceiver::class.java)
-        val calendar = initCalendar()
-
         val pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, initCalendar().timeInMillis, pendingIntent)
+        Log.i(TAG, "schedule: End")
+    }
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+    fun cancel(context: Context) {
     }
 
 

@@ -51,13 +51,19 @@ class AlarmService : Service() {
     }
 
     private fun vibrate() {
-        val pattern = longArrayOf(0, 1000, 1000, 1000, 1000)
+        val delay = 0L
+        val vibrateTime = 1000L
+        val sleep = 1000L
+        val pattern = longArrayOf(delay, vibrateTime, sleep, vibrateTime, sleep, vibrateTime, sleep)
+
         if (Build.VERSION.SDK_INT >= 26) {
             vibrator.vibrate(VibrationEffect.createWaveform(pattern, VibrationEffect.DEFAULT_AMPLITUDE))
         } else {
             @Suppress("DEPRECATION")
             vibrator.vibrate(pattern, 0)
         }
+
+        Handler(Looper.getMainLooper()).postDelayed({ vibrate() }, 3000)
     }
 
     private fun getNotification(pendingIntent: PendingIntent?) = NotificationCompat.Builder(this, Constant.CHANNEL_ID)

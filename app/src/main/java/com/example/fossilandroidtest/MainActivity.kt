@@ -1,30 +1,38 @@
 package com.example.fossilandroidtest
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Spinner
+import androidx.appcompat.app.AppCompatActivity
 import com.example.fossilandroidtest.model.Alarm
 
 class MainActivity : AppCompatActivity() {
     private lateinit var btnStart: Button
     private lateinit var btnStop: Button
 
-    private val mockData = Alarm(alarmId = 1, hour = 9, minute = 10)
+    private val mockData = Alarm(alarmId = 1, hour = 10, minute = 14)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i(TAG, "onCreate: Entry")
         setContentView(R.layout.activity_main)
-
+        btnStart = findViewById(R.id.btnStart)
+        btnStop = findViewById(R.id.btnStop)
+        btnStart.setOnClickListener {
+            Log.d(TAG, "onCreateView: Click start")
+            mockData.schedule(this.applicationContext)
+        }
     }
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        val view = super.onCreateView(name, context, attrs)
-        btnStart = findViewById(R.id.btnStart)
-        btnStop = findViewById(R.id.btnStop)
-        return view
+        return super.onCreateView(name, context, attrs)
     }
 
 
+    companion object {
+        private val TAG = MainActivity::class.simpleName
+    }
 }
