@@ -1,5 +1,6 @@
 package com.example.fossilandroidtest.service
 
+import android.app.Notification
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
@@ -8,8 +9,8 @@ import android.os.*
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.fossilandroidtest.R
-import com.example.fossilandroidtest.WakeUpActivity
 import com.example.fossilandroidtest.common.Constant
+import com.example.fossilandroidtest.receiver.NotificationReceiver
 
 class AlarmService : Service() {
 
@@ -38,8 +39,6 @@ class AlarmService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.i(TAG, "onStartCommand: Entry - Checking ID: $startId")
-        val intentActivity = Intent(this, WakeUpActivity::class.java).apply { setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP) }
-        val pendingIntent = PendingIntent.getActivity(this, 0, intentActivity, 0)
         var alarmName = Constant.DEFAULT_ALARM_NAME
 
         intent?.run { alarmName = resources.getString(R.string.noti_alarm_name, getStringExtra(Constant.ALARM_NAME)) }
@@ -47,7 +46,7 @@ class AlarmService : Service() {
         mediaPlayer.start()
         vibrate()
 
-        startForeground(1, getNotification(pendingIntent, alarmName))
+        startForeground(1, getNotification(alarmName))
         Log.i(TAG, "onStartCommand: End")
         return START_STICKY
     }
@@ -62,12 +61,31 @@ class AlarmService : Service() {
         }
     }
 
-    private fun getNotification(pendingIntent: PendingIntent?, alarmName: String) = NotificationCompat.Builder(this, Constant.CHANNEL_ID)
-        .setContentTitle(alarmName)
-        .setContentText(this.resources.getString(R.string.content_wake_up))
-        .setSmallIcon(R.drawable.ic_baseline_access_alarm_24)
-        .setContentIntent(pendingIntent)
-        .build()
+    private fun getNotification(alarmName: String): Notification {
+        val intentDismiss = Intent().apply {
+            action = Constant.DISMISS_ACTION
+            setClass(this@AlarmService, NotificationReceiver::class.java)
+        }
+        val pendingDismiss = PendingIntent.getBroadcast(this, SystemClock.uptimeMillis().toInt(), intentDismiss, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val intentSnooze = Intent().apply {
+            action = Constant.SNOOZE_ACTION
+            setClass(this@AlarmService, NotificationReceiver::class.java)
+        }
+        val pendingSnooze = PendingIntent.getBroadcast(this, SystemClock.uptimeMillis().toInt(), intentSnooze, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        return NotificationCompat.Builder(this, Constant.CHANNEL_ID)
+            .setContentTitle(alarmName)
+            .setContentText(this.resources.getString(R.string.content_wake_up))
+            .setSmallIcon(R.drawable.ic_baseline_access_alarm_24)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .setAutoCancel(false)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .addAction(R.drawable.ic_baseline_alarm_off_24, resources.getString(R.string.dismiss), pendingDismiss)
+            .addAction(R.drawable.ic_baseline_snooze_24, resources.getString(R.string.snooze), pendingSnooze)
+            .build()
+    }
 
     override fun onDestroy() {
         super.onDestroy()

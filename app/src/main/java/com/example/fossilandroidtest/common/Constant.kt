@@ -21,6 +21,7 @@ class Constant {
         const val SNOOZE_MINUTE_DEFAULT = 2
 
         const val CHANNEL_ID = "ALARM_CHANNEL"
+        const val NOTIFICATION_ID = 200
         const val CHANNEL_NAME = "ALARM_SERVICE_CHANNEL"
 
         const val LIST_ALARM_TITLE_SCREEN = "Alarm"
@@ -31,6 +32,9 @@ class Constant {
         const val DEFAULT_ALARM_NAME = "Hello"
 
         const val RUN_DAILY_MIL_TIME = (24 * 60 * 60 * 1000).toLong()
+
+        const val DISMISS_ACTION = "Dismiss"
+        const val SNOOZE_ACTION = "Snooze"
 
     }
 }

@@ -15,5 +15,13 @@ object ViewBinding {
         }
     }
 
-
+    @JvmStatic
+    @BindingAdapter("dim")
+    fun View.bindDim(shouldBeDimmed: Boolean) {
+        alpha = if (shouldBeDimmed) {
+            0.4f
+        } else {
+            1f
+        }
+    }
 }
