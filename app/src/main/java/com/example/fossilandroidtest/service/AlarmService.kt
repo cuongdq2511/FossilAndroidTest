@@ -15,8 +15,6 @@ class AlarmService : Service() {
 
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var vibrator: Vibrator
-    private lateinit var handler: Handler
-    private lateinit var runnable: Runnable
 
     override fun onCreate() {
         super.onCreate()
@@ -55,21 +53,13 @@ class AlarmService : Service() {
     }
 
     private fun vibrate() {
-        val delay = 0L
-        val vibrateTime = 1000L
-        val sleep = 1000L
-        val pattern = longArrayOf(delay, vibrateTime, sleep, vibrateTime, sleep, vibrateTime, sleep)
-
+        val pattern = longArrayOf(0, 400, 1000, 600, 1000, 800, 1000, 1000)
         if (Build.VERSION.SDK_INT >= 26) {
-            vibrator.vibrate(VibrationEffect.createWaveform(pattern, VibrationEffect.DEFAULT_AMPLITUDE))
+            vibrator.vibrate(VibrationEffect.createWaveform(pattern, 3))
         } else {
             @Suppress("DEPRECATION")
-            vibrator.vibrate(pattern, 0)
+            vibrator.vibrate(pattern, 3)
         }
-
-        handler = Handler(Looper.getMainLooper())
-        runnable = Runnable { vibrate() }
-        handler.postDelayed(runnable, 3000)
     }
 
     private fun getNotification(pendingIntent: PendingIntent?, alarmName: String) = NotificationCompat.Builder(this, Constant.CHANNEL_ID)
@@ -84,7 +74,6 @@ class AlarmService : Service() {
         Log.i(TAG, "onDestroy: Entry")
         mediaPlayer.stop()
         vibrator.cancel()
-        handler.removeCallbacks(runnable)
     }
 
     companion object {

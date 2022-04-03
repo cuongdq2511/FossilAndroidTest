@@ -12,6 +12,7 @@ class Constant {
         const val SUNDAY = "Sun"
         const val REPEAT = "REPEAT"
         const val ALARM_NAME = "NAME"
+        const val AlARM_RECEIVER_ACTION = "AlARM_RECEIVER_ACTION"
 
         const val DEFAULT_SECOND = 0
         const val DEFAULT_MIL_SECOND = 0

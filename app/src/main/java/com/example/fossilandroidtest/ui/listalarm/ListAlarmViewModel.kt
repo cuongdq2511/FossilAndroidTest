@@ -42,7 +42,7 @@ class ListAlarmViewModel : ViewModel() {
 
     private suspend fun getListAlarm() {
         Log.i(TAG, "getListAlarm: Entry")
-        _listAlarm = alarmRepository.getListAlarm().toMutableList()
+        _listAlarm = alarmRepository.getListAlarm().toMutableList ()
     }
 
     /**
@@ -53,7 +53,7 @@ class ListAlarmViewModel : ViewModel() {
      */
     fun handleUpdateStatusAlarm(alarm: Alarm, context: Context) {
         Log.i(TAG, "handleUpdateStatusAlarm: Entry - Checking status ${alarm.isEnable}")
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             launch(Dispatchers.Main) {
                 Log.d(TAG, "handleUpdateStatusAlarm: Start scope")
                 handleScheduling(alarm, context)

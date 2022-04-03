@@ -1,5 +1,6 @@
 package com.example.fossilandroidtest.model
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
@@ -11,8 +12,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.fossilandroidtest.R
 import com.example.fossilandroidtest.common.Constant
-import com.example.fossilandroidtest.common.toDayString
 import com.example.fossilandroidtest.receiver.AlarmBroadcastReceiver
+import java.text.SimpleDateFormat
 import java.util.*
 
 @Entity(tableName = "AlarmTable")
@@ -39,6 +40,7 @@ data class Alarm(
      * It will send broadcast message to AlarmBroadcastReceiver when time up
      * @param context
      */
+    @SuppressLint("SimpleDateFormat")
     fun scheduleAlarm(context: Context) {
         Log.i(TAG, "schedule: Entry - Checking Alarm: $this")
         isEnable = true
@@ -47,9 +49,11 @@ data class Alarm(
         val calendar = getCalendar()
         val pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0)
         if (!isRepeat()) {
+            Log.d(TAG, "scheduleAlarm: Is not repeat")
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-            calendar.toDayString()
+            SimpleDateFormat("EEEE, MMMM d").format(calendar.time)
         } else {
+            Log.d(TAG, "scheduleAlarm: Is repeat")
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, Constant.RUN_DAILY_MIL_TIME, pendingIntent)
             getSpecificRepeatDay()
         }.let { contentDay ->
@@ -66,9 +70,9 @@ data class Alarm(
         Log.i(TAG, "cancel: Entry - Checking Alarm: $this")
         isEnable = false
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = PendingIntent.getBroadcast(context, alarmId, getIntentScheduling(context), 0)
+        val pendingIntent = PendingIntent.getBroadcast(context, alarmId, getIntentScheduling(context), PendingIntent.FLAG_UPDATE_CURRENT)
         alarmManager.cancel(pendingIntent)
-        Toast.makeText(context, context.resources.getString(R.string.cancel_alarm, name, getSpecificRepeatDay(), hour, minute), Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.resources.getString(R.string.cancel_alarm, name, hour, minute), Toast.LENGTH_SHORT).show()
         Log.i(TAG, "cancelAlarm: End")
     }
 
@@ -77,6 +81,7 @@ data class Alarm(
      * @return Intent
      */
     private fun getIntentScheduling(context: Context) = Intent(context, AlarmBroadcastReceiver::class.java).apply {
+        action = Constant.AlARM_RECEIVER_ACTION
         putExtra(Constant.ALARM_NAME, name)
         putExtra(Constant.REPEAT, isRepeat())
         putExtra(Constant.MONDAY, isRepeatMon)
@@ -111,7 +116,7 @@ data class Alarm(
     /**
      * This function will get time text
      */
-    fun getTime() = "$hour:$minute"
+    fun getTime() = String.format("%02d:%02d", hour, minute)
 
     /**
      * This function will check is alarm every in week or not
@@ -126,7 +131,7 @@ data class Alarm(
     /**
      * This function will get item day which set for repeat alarm
      */
-    fun getDayText() = if (isEveryDay()) Constant.EVERY_DAY else getSpecificRepeatDay()
+    fun getDayText() = if (isEveryDay()) Constant.EVERY_DAY else if (!isRepeat()) "" else getSpecificRepeatDay()
 
     /**
      * This function will check name is empty or not

@@ -1,25 +1,41 @@
 package com.example.fossilandroidtest
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import com.example.fossilandroidtest.common.Constant
+import com.example.fossilandroidtest.databinding.ActivityMainBinding
+import com.example.fossilandroidtest.databinding.ActivityWakeUpBinding
+import com.example.fossilandroidtest.databinding.FragmentListAlarmBinding
 import com.example.fossilandroidtest.model.Alarm
 import com.example.fossilandroidtest.service.AlarmService
+import com.example.fossilandroidtest.ui.listalarm.ListAlarmFragment
 import java.util.*
 
 class WakeUpActivity : AppCompatActivity() {
-    private lateinit var btnDismiss: Button
-    private lateinit var btnSnooze: Button
+
+    private lateinit var binding: ActivityWakeUpBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_wake_up)
-        btnSnooze = findViewById(R.id.btnSnooze)
-        btnDismiss = findViewById(R.id.btnDismiss)
-        btnSnooze.setOnClickListener { handleSnoozeAlarm() }
-        btnDismiss.setOnClickListener { handleDismissAlarm() }
+        binding = ActivityWakeUpBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
+
+    fun onViewClick(view: View) {
+        Log.i(TAG, "onViewClick: Entry")
+        binding.apply {
+            when(view) {
+                btnDismiss -> handleDismissAlarm()
+                btnSnooze -> handleSnoozeAlarm()
+            }
+        }
+
     }
 
     /**

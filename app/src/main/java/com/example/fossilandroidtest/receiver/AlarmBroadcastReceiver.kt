@@ -14,7 +14,8 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
         Log.i(TAG, "onReceive: Entry")
         intent?.run {
-            handleReceiveMessage(context, this)
+            if (intent.action.equals(Constant.AlARM_RECEIVER_ACTION))
+                handleReceiveMessage(context, this)
         }
         Log.i(TAG, "onReceive: End")
     }
@@ -41,17 +42,17 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
      * @param intent
      */
     private fun handleReceiveMessage(context: Context, intent: Intent) {
-        Log.i(TAG, "handleReceivedNormalAction: Entry")
+        Log.i(TAG, "handleReceiveMessage: Entry")
         if (!intent.getBooleanExtra(Constant.REPEAT, false)) {
-            Log.d(TAG, "handleReceivedNormalAction: No repeat alarm")
+            Log.d(TAG, "handleReceiveMessage: No repeat alarm")
             startAlarmService(context, intent)
         } else {
             if (isToday(intent)) {
-                Log.d(TAG, "handleReceivedNormalAction: is today")
+                Log.d(TAG, "handleReceiveMessage: is today")
                 startAlarmService(context, intent)
             }
         }
-        Log.i(TAG, "handleReceivedNormalAction: End")
+        Log.i(TAG, "handleReceiveMessage: End")
     }
 
     /**
@@ -61,7 +62,7 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
      * @return Boolean
      */
     private fun isToday(intent: Intent): Boolean {
-        Log.i(TAG, "checkIsToday: Entry")
+        Log.i(TAG, "isToday: Entry")
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
         return when (calendar[Calendar.DAY_OF_WEEK]) {
