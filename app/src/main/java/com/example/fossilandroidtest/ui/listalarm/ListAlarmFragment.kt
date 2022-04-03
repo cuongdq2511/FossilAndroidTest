@@ -3,6 +3,7 @@ package com.example.fossilandroidtest.ui.listalarm
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fossilandroidtest.R
 import com.example.fossilandroidtest.common.AlarmItemDecoration
@@ -20,7 +21,7 @@ class ListAlarmFragment : BaseFragment(R.layout.fragment_list_alarm) {
    private val viewModel: ListAlarmViewModel by viewModels()
 
    override val titleScreen: String
-      get() = Constant.ALARM_TITLE
+      get() = Constant.LIST_ALARM_TITLE_SCREEN
 
    override val isHideBackButton: Boolean
       get() = true
@@ -84,6 +85,7 @@ class ListAlarmFragment : BaseFragment(R.layout.fragment_list_alarm) {
 
    private fun handleOnAddButtonClick() {
       Log.i(TAG, "handleOnAddButtonClick: Entry")
+      findNavController().navigate(R.id.action_listAlarmFragment_to_addAlarmFragment)
    }
 
 }

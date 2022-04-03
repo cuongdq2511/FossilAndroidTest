@@ -4,13 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/drawable/background_item_radius_corner.xml" value="0.1405" />
+        <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/drawable/background_radius_corner_top_left_right.xml" value="0.1405" />
         <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/drawable/background_thumb_switch.xml" value="0.1405" />
         <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/drawable/background_track_switch.xml" value="0.1405" />
+        <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/drawable/checkbox_custom.xml" value="0.1405" />
+        <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/drawable/drawable_edt_cursor_blue.xml" value="0.1405" />
         <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/drawable/ic_baseline_access_alarm_24.xml" value="0.207" />
         <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/drawable/ic_baseline_add_alarm_32.xml" value="0.1" />
+        <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/drawable/ic_checkbox_off.xml" value="0.1405" />
         <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/drawable/ic_title_back.xml" value="0.1" />
+        <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/layout-land/fragment_add_alarm.xml" value="0.12522045855379188" />
         <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/layout/activity_main.xml" value="0.228125" />
         <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/layout/activity_wake_up.xml" value="0.264" />
+        <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/layout/fragment_add_alarm.xml" value="0.14791666666666667" />
         <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/layout/fragment_list_alarm.xml" value="0.16942148760330578" />
         <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/layout/item_alarm.xml" value="0.21927083333333333" />
         <entry key="..\:/Code/Mobile/FossilAndroidTest/app/src/main/res/layout/layout_header.xml" value="0.18552036199095023" />

@@ -23,7 +23,9 @@ class Constant {
         const val CHANNEL_ID = "ALARM_CHANNEL"
         const val CHANNEL_NAME = "ALARM_SERVICE_CHANNEL"
 
-        const val LIST_ALARM_TITLE = "Alarm"
+        const val LIST_ALARM_TITLE_SCREEN = "Alarm"
+        const val ADD_ALARM_TITLE_SCREEN = "Add Alarm"
+
 
     }
 }

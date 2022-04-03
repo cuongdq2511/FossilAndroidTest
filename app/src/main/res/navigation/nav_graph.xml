@@ -9,5 +9,13 @@
         android:id="@+id/listAlarmFragment"
         android:name="com.example.fossilandroidtest.ui.listalarm.ListAlarmFragment"
         android:label="fragment_list_alarm"
-        tools:layout="@layout/fragment_list_alarm" />
+        tools:layout="@layout/fragment_list_alarm" >
+        <action
+            android:id="@+id/action_listAlarmFragment_to_addAlarmFragment"
+            app:destination="@id/addAlarmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAlarmFragment"
+        android:name="com.example.fossilandroidtest.ui.addalarm.AddAlarmFragment"
+        android:label="AddAlarmFragment" />
 </navigation>

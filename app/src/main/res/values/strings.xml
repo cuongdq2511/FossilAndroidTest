@@ -3,4 +3,13 @@
     <string name="content_wake_up">HEY BUDDY! IT IS TIME TO WAKE UP!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="alarm_name">Alarm Name</string>
+    <string name="set">Set</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="fri">Fri</string>
+    <string name="thu">Thu</string>
+    <string name="sat">Sat</string>
+    <string name="sun">Sun</string>
 </resources>

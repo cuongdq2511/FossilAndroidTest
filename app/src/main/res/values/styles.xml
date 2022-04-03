@@ -90,7 +90,21 @@
         <item name="layout_constraintGuide_percent">0.95</item>
     </style>
 
+    <!-- TextInput -->
 
+    <style name="CustomStyle.TextInputLayout" parent="CustomStyle">
+        <item name="expandedHintEnabled">true</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="boxStrokeColor">@color/blue</item>
+        <item name="hintTextColor">@color/blue</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 
+    <!-- Check Box -->
+    <style name="CheckBoxStyle" parent="Base.Theme.AppCompat">
+        <item name="colorAccent">#3E91FF</item>
+        <item name="android:textColorSecondary">#8C8C8C</item>
+    </style>
 
 </resources>

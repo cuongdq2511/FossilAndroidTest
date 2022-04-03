@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.example.fossilandroidtest.ui.addalarm.AddAlarmViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.example.fossilandroidtest.ui.addalarm.AddAlarmFragment" />
+    </data>
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screen_background"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glLeft_5"
+            style="@style/CustomStyle.Guideline.Left_5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glRight_95"
+            style="@style/CustomStyle.Guideline.Right_95" />
+
+        <include
+            android:id="@+id/layoutHeader"
+            layout="@layout/layout_header"
+            android:layout_width="match_parent"
+            app:onClick="@{fragment::onViewClick}"
+            app:title="@{fragment.titleScreen}"
+            app:isDisableBack="@{fragment.isHideBackButton}"
+            app:isDisableAdd="@{fragment.isHideAddButton}"
+            android:layout_height="wrap_content" />
+
+        <TimePicker
+            android:id="@+id/timePicker"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:timePickerMode="spinner"
+            app:layout_constraintBottom_toTopOf="@+id/layoutDetail"
+            app:layout_constraintEnd_toStartOf="@id/glRight_95"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/glLeft_5"
+            app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
+        
+        <LinearLayout
+            android:id="@+id/layoutDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_radius_corner_top_left_right"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/dimen_15dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="@dimen/dimen_15dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputName"
+                style="@style/CustomStyle.TextInputLayout"
+                android:layout_width="match_parent"
+                android:hint="@string/alarm_name"
+                android:focusableInTouchMode="true"
+                app:expandedHintEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:imeOptions="actionDone"
+                    android:focusableInTouchMode="true"
+                    android:textAppearance="@style/CustomStyle.Text.TextContent_16"
+                    android:textCursorDrawable="@drawable/drawable_edt_cursor_blue" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutRepeat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/layoutMon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@+id/layoutTue"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <CheckBox
+                        android:id="@+id/chbMon"
+                        style="@style/CustomStyle"
+                        android:button="@drawable/checkbox_custom"
+                        android:theme="@style/CheckBoxStyle" />
+
+                    <TextView
+                        style="@style/CustomStyle.Text.TextContent_16"
+                        android:text="@string/mon" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutTue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@+id/layoutWed"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/layoutMon"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <CheckBox
+                        android:id="@+id/chbTue"
+                        style="@style/CustomStyle"
+                        android:button="@drawable/checkbox_custom"
+                        android:theme="@style/CheckBoxStyle" />
+
+                    <TextView
+                        style="@style/CustomStyle.Text.TextContent_16"
+                        android:text="@string/tue" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutWed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@+id/layoutThu"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/layoutTue"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <CheckBox
+                        android:id="@+id/chbWed"
+                        style="@style/CustomStyle"
+                        android:button="@drawable/checkbox_custom"
+                        android:theme="@style/CheckBoxStyle" />
+
+                    <TextView
+                        style="@style/CustomStyle.Text.TextContent_16"
+                        android:text="@string/wed" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutThu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@+id/layoutFri"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/layoutWed"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <CheckBox
+                        android:id="@+id/chbThu"
+                        style="@style/CustomStyle"
+                        android:button="@drawable/checkbox_custom"
+                        android:theme="@style/CheckBoxStyle" />
+
+                    <TextView
+                        style="@style/CustomStyle.Text.TextContent_16"
+                        android:text="@string/thu" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutFri"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@+id/layoutSat"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/layoutThu"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <CheckBox
+                        android:id="@+id/chbFri"
+                        style="@style/CustomStyle"
+                        android:button="@drawable/checkbox_custom"
+                        android:theme="@style/CheckBoxStyle" />
+
+                    <TextView
+                        style="@style/CustomStyle.Text.TextContent_16"
+                        android:text="@string/fri" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutSat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@+id/layoutSun"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/layoutFri"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <CheckBox
+                        android:id="@+id/chbSat"
+                        style="@style/CustomStyle"
+                        android:button="@drawable/checkbox_custom"
+                        android:theme="@style/CheckBoxStyle" />
+
+                    <TextView
+                        style="@style/CustomStyle.Text.TextContent_16"
+                        android:text="@string/sat" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutSun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/layoutSat"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <CheckBox
+                        android:id="@+id/chbSun"
+                        style="@style/CustomStyle"
+                        android:button="@drawable/checkbox_custom"
+                        android:theme="@style/CheckBoxStyle" />
+
+                    <TextView
+                        style="@style/CustomStyle.Text.TextContent_16"
+                        android:text="@string/sun" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/btnSetAlarm"
+                style="@style/CustomStyle.Text.TextContent_20.Blue"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/set" />
+            
+        </LinearLayout>
+        
+    </androidx.constraintlayout.widget.ConstraintLayout>
+        
+</layout>
