@@ -76,7 +76,6 @@ class ListAlarmViewModel : ViewModel() {
         } else {
             alarm.scheduleAlarm(context)
         }
-        alarm.isEnable = !alarm.isEnable
     }
 
     /**

@@ -39,7 +39,6 @@ class AddAlarmViewModel : ViewModel() {
     fun handleOnAddAlarm(onDone: (Alarm) -> Unit) {
         Log.d(TAG, "handleOnAddAlarm: Entry")
         _alarm.value?.let { alarm ->
-            alarm.isEnable = true
             viewModelScope.launch(job) {
                 launch(Dispatchers.IO) {
                     Log.d(TAG, "handleOnAddAlarm: Start scope - Checking alarm $alarm")

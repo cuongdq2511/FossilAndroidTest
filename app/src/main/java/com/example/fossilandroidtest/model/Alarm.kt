@@ -11,6 +11,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.fossilandroidtest.R
 import com.example.fossilandroidtest.common.Constant
+import com.example.fossilandroidtest.common.toDayString
 import com.example.fossilandroidtest.receiver.AlarmBroadcastReceiver
 import java.util.*
 
@@ -33,7 +34,6 @@ data class Alarm(
     var createdTime: Long = 0
 ) {
 
-
     /**
      * This function will set Alarm Manager for scheduling alarm by specific AlarmId
      * It will send broadcast message to AlarmBroadcastReceiver when time up
@@ -41,11 +41,20 @@ data class Alarm(
      */
     fun scheduleAlarm(context: Context) {
         Log.i(TAG, "schedule: Entry - Checking Alarm: $this")
+        isEnable = true
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, AlarmBroadcastReceiver::class.java)
+        val intent = getIntentScheduling(context)
+        val calendar = getCalendar()
         val pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0)
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, initCalendar().timeInMillis, pendingIntent)
-        Toast.makeText(context, context.resources.getString(R.string.add_alarm, name, getSpecificRepeatDay(), hour, minute), Toast.LENGTH_SHORT).show()
+        if (!isRepeat()) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+            calendar.toDayString()
+        } else {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, Constant.RUN_DAILY_MIL_TIME, pendingIntent)
+            getSpecificRepeatDay()
+        }.let { contentDay ->
+            Toast.makeText(context, context.resources.getString(R.string.add_alarm, name, contentDay, hour, minute), Toast.LENGTH_SHORT).show()
+        }
         Log.i(TAG, "schedule: End")
     }
 
@@ -55,25 +64,42 @@ data class Alarm(
      */
     fun cancelAlarm(context: Context) {
         Log.i(TAG, "cancel: Entry - Checking Alarm: $this")
+        isEnable = false
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, AlarmBroadcastReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(context, alarmId, getIntentScheduling(context), 0)
         alarmManager.cancel(pendingIntent)
         Toast.makeText(context, context.resources.getString(R.string.cancel_alarm, name, getSpecificRepeatDay(), hour, minute), Toast.LENGTH_SHORT).show()
         Log.i(TAG, "cancelAlarm: End")
     }
 
     /**
+     * This function will return intent which set all data need to be used
+     * @return Intent
+     */
+    private fun getIntentScheduling(context: Context) = Intent(context, AlarmBroadcastReceiver::class.java).apply {
+        putExtra(Constant.ALARM_NAME, name)
+        putExtra(Constant.REPEAT, isRepeat())
+        putExtra(Constant.MONDAY, isRepeatMon)
+        putExtra(Constant.TUESDAY, isRepeatTue)
+        putExtra(Constant.WEDNESDAY, isRepeatWed)
+        putExtra(Constant.THURSDAY, isRepeatThu)
+        putExtra(Constant.FRIDAY, isRepeatFri)
+        putExtra(Constant.SATURDAY, isRepeatSat)
+        putExtra(Constant.SUNDAY, isRepeatSun)
+    }
+
+
+    /**
      * This function will get calendar with time set by user
      * If user set time before current time then we will set alarm for the next day
      * @return Calendar
      */
-    private fun initCalendar(): Calendar = Calendar.getInstance().apply {
+    private fun getCalendar(): Calendar = Calendar.getInstance().apply {
         timeInMillis = System.currentTimeMillis()
         set(Calendar.HOUR_OF_DAY, hour)
         set(Calendar.MINUTE, minute)
         set(Calendar.SECOND, Constant.DEFAULT_SECOND)
-        set(Calendar.MILLISECOND, Constant.DEFAULT_MILI_SECOND)
+        set(Calendar.MILLISECOND, Constant.DEFAULT_MIL_SECOND)
 
         /* This will check time user set is over current time or not - If yes then increase one more day */
         if (timeInMillis <= System.currentTimeMillis()) {
@@ -93,10 +119,18 @@ data class Alarm(
     private fun isEveryDay() = isRepeatMon && isRepeatTue && isRepeatWed && isRepeatThu && isRepeatFri && isRepeatSat && isRepeatSun
 
     /**
+     * This function will check alarm is set repeat or not
+     */
+    private fun isRepeat() = isRepeatMon || isRepeatTue || isRepeatWed || isRepeatThu || isRepeatFri || isRepeatSat || isRepeatSun
+
+    /**
      * This function will get item day which set for repeat alarm
      */
     fun getDayText() = if (isEveryDay()) Constant.EVERY_DAY else getSpecificRepeatDay()
 
+    /**
+     * This function will check name is empty or not
+     */
     fun isBlankName() = name.isEmpty() || name.isBlank()
 
     /**
@@ -117,6 +151,7 @@ data class Alarm(
             days.dropLast(1)
         }
     }
+
 
     companion object {
         private val TAG = Alarm::class.simpleName

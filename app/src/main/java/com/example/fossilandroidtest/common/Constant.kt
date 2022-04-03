@@ -11,11 +11,10 @@ class Constant {
         const val SATURDAY = "Sat"
         const val SUNDAY = "Sun"
         const val REPEAT = "REPEAT"
-        const val ALARM_TITLE = "TITLE"
-
+        const val ALARM_NAME = "NAME"
 
         const val DEFAULT_SECOND = 0
-        const val DEFAULT_MILI_SECOND = 0
+        const val DEFAULT_MIL_SECOND = 0
         const val PENDING_INTENT_FLAG = 0
 
         const val SNOOZE_MINUTE_DEFAULT = 2
@@ -28,7 +27,9 @@ class Constant {
 
         const val DATABASE_NAME = "AlarmDatabase"
 
-        const val DEFAULT_ALARM_ID = -1
+        const val DEFAULT_ALARM_NAME = "Hello"
+
+        const val RUN_DAILY_MIL_TIME = (24 * 60 * 60 * 1000).toLong()
 
     }
 }

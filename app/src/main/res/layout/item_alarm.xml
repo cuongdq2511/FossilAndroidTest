@@ -11,37 +11,38 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/background_item_radius_corner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/background_item_radius_corner"
         android:paddingTop="20dp"
         android:paddingBottom="20dp">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/glLeft_5"
-            style="@style/CustomStyle.Guideline.Left_5"/>
+            style="@style/CustomStyle.Guideline.Left_5" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/glRight_95"
-            style="@style/CustomStyle.Guideline.Right_95"/>
+            style="@style/CustomStyle.Guideline.Right_95" />
 
         <TextView
             android:id="@+id/txtAlarmName"
             style="@style/CustomStyle.Text.TextContent_16"
+            gone="@{item.isBlankName}"
+            android:text="@{item.name}"
             app:layout_constraintBottom_toTopOf="@+id/txtTime"
             app:layout_constraintStart_toEndOf="@id/glLeft_5"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{item.name}"
-            gone="@{item.isBlankName}"
-            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintVertical_chainStyle="spread_inside"
             tools:text="Go to work" />
 
         <TextView
             android:id="@+id/txtTime"
             style="@style/CustomStyle.Text.TextTitle_30"
+            android:text="@{item.getTime()}"
+            android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/glLeft_5"
-            android:text="@{item.getTime()}"
             app:layout_constraintTop_toBottomOf="@+id/txtAlarmName"
             tools:text="06:00" />
 
@@ -62,9 +63,9 @@
             android:id="@+id/scEnable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="@{item.isEnable()}"
             android:thumb="@drawable/background_thumb_switch"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:checked="@{item.isEnable()}"
             app:layout_constraintEnd_toStartOf="@id/glRight_95"
             app:layout_constraintTop_toTopOf="parent"
             app:track="@drawable/background_track_switch" />

@@ -40,13 +40,16 @@ class AlarmService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.i(TAG, "onStartCommand: Entry - Checking ID: $startId")
-        val intentActivity = Intent(this, WakeUpActivity::class.java)
+        val intentActivity = Intent(this, WakeUpActivity::class.java).apply { setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP) }
         val pendingIntent = PendingIntent.getActivity(this, 0, intentActivity, 0)
+        var alarmName = Constant.DEFAULT_ALARM_NAME
+
+        intent?.run { alarmName = resources.getString(R.string.noti_alarm_name, getStringExtra(Constant.ALARM_NAME)) }
 
         mediaPlayer.start()
         vibrate()
 
-        startForeground(1, getNotification(pendingIntent))
+        startForeground(1, getNotification(pendingIntent, alarmName))
         Log.i(TAG, "onStartCommand: End")
         return START_STICKY
     }
@@ -69,8 +72,8 @@ class AlarmService : Service() {
         handler.postDelayed(runnable, 3000)
     }
 
-    private fun getNotification(pendingIntent: PendingIntent?) = NotificationCompat.Builder(this, Constant.CHANNEL_ID)
-        .setContentTitle("Hello")
+    private fun getNotification(pendingIntent: PendingIntent?, alarmName: String) = NotificationCompat.Builder(this, Constant.CHANNEL_ID)
+        .setContentTitle(alarmName)
         .setContentText(this.resources.getString(R.string.content_wake_up))
         .setSmallIcon(R.drawable.ic_baseline_access_alarm_24)
         .setContentIntent(pendingIntent)

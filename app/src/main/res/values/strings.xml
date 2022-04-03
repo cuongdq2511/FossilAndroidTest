@@ -15,5 +15,6 @@
 
     <string name="add_alarm">Alarm %s at %s - %02d:%02d was scheduled!</string>
     <string name="cancel_alarm">Alarm %s  at %s - %02d:%02d was cancelled!</string>
+    <string name="noti_alarm_name">%s Alarm</string>
 
 </resources>
