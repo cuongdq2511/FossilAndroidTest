@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnStart: Button
     private lateinit var btnStop: Button
 
-    private val mockData = Alarm(alarmId = 1, hour = 10, minute = 45)
+    private val mockData = Alarm(alarmId = 1, hour = 11, minute = 20)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i(TAG, "onCreate: Entry")
@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         btnStart = findViewById(R.id.btnStart)
         btnStop = findViewById(R.id.btnStop)
         btnStart.setOnClickListener { mockData.scheduleAlarm(this.applicationContext) }
-
         btnStop.setOnClickListener { mockData.cancelAlarm(this.applicationContext) }
     }
 

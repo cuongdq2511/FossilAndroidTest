@@ -18,6 +18,8 @@ class Constant {
         const val DEFAULT_MILI_SECOND = 0
         const val PENDING_INTENT_FLAG = 0
 
+        const val SNOOZE_MINUTE_DEFAULT = 2
+
         const val CHANNEL_ID = "ALARM_CHANNEL"
         const val CHANNEL_NAME = "ALARM_SERVICE_CHANNEL"
 

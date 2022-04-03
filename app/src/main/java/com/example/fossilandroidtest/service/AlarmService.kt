@@ -15,7 +15,8 @@ class AlarmService : Service() {
 
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var vibrator: Vibrator
-
+    private lateinit var handler: Handler
+    private lateinit var runnable: Runnable
 
     override fun onCreate() {
         super.onCreate()
@@ -63,7 +64,9 @@ class AlarmService : Service() {
             vibrator.vibrate(pattern, 0)
         }
 
-        Handler(Looper.getMainLooper()).postDelayed({ vibrate() }, 3000)
+        handler = Handler(Looper.getMainLooper())
+        runnable = Runnable { vibrate() }
+        handler.postDelayed(runnable, 3000)
     }
 
     private fun getNotification(pendingIntent: PendingIntent?) = NotificationCompat.Builder(this, Constant.CHANNEL_ID)
@@ -78,6 +81,7 @@ class AlarmService : Service() {
         Log.i(TAG, "onDestroy: Entry")
         mediaPlayer.stop()
         vibrator.cancel()
+        handler.removeCallbacks(runnable)
     }
 
     companion object {

@@ -46,7 +46,6 @@ data class Alarm(
         Log.i(TAG, "cancelAlarm: End")
     }
 
-
     private fun initCalendar() = Calendar.getInstance().apply {
         timeInMillis = System.currentTimeMillis()
         set(Calendar.HOUR_OF_DAY, hour)
