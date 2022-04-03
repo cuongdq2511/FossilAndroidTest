@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.fossilandroidtest.R
 import com.example.fossilandroidtest.common.Constant
 import com.example.fossilandroidtest.receiver.AlarmBroadcastReceiver
 import java.util.*
@@ -43,7 +44,7 @@ data class Alarm(
         val intent = Intent(context, AlarmBroadcastReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, initCalendar().timeInMillis, pendingIntent)
-        Toast.makeText(context, "Start alarm at $hour - $minute successlly!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.resources.getString(R.string.add_alarm, name, getSpecificRepeatDay(), hour, minute), Toast.LENGTH_SHORT).show()
         Log.i(TAG, "schedule: End")
     }
 
@@ -57,7 +58,7 @@ data class Alarm(
         val intent = Intent(context, AlarmBroadcastReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0)
         alarmManager.cancel(pendingIntent)
-        Toast.makeText(context, "Cancel alarm at $hour - $minute successlly!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.resources.getString(R.string.cancel_alarm, name, getSpecificRepeatDay(), hour, minute), Toast.LENGTH_SHORT).show()
         Log.i(TAG, "cancelAlarm: End")
     }
 

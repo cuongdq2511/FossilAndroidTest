@@ -5,7 +5,9 @@ import android.graphics.Rect
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.fossilandroidtest.R
 import com.example.fossilandroidtest.common.Constant
 import com.example.fossilandroidtest.common.handleClearFocusEditText
@@ -26,7 +28,7 @@ class AddAlarmFragment : BaseFragment(R.layout.fragment_add_alarm) {
     override fun initView(view: View) {
         binding = FragmentAddAlarmBinding.bind(view).apply {
             lifecycleOwner = this@AddAlarmFragment
-            fragment =  this@AddAlarmFragment
+            fragment = this@AddAlarmFragment
             vm = viewModel
 
             timePicker.setIs24HourView(true)
@@ -67,13 +69,19 @@ class AddAlarmFragment : BaseFragment(R.layout.fragment_add_alarm) {
     }
 
     private fun handleAddNewAlarm() {
-        Log.i(TAG, "handleAddNewAlarm: Entry - Checking ${viewModel.alarm.value}")
+        Log.i(TAG, "handleAddNewAlarm: Entry ")
+        viewModel.handleOnAddAlarm { insertedAlarm ->
+            Log.d(TAG, "handleAddNewAlarm: Checking alarm $insertedAlarm")
+            insertedAlarm.scheduleAlarm(requireContext().applicationContext)
+            handleOnBackPress()
+        }
     }
 
     private fun handleOnBackPress() {
         Log.i(TAG, "handleOnBackPress: Entry")
+        findNavController().navigateUp()
     }
-    
+
     companion object {
         private val TAG = AddAlarmFragment::class.java.simpleName
     }

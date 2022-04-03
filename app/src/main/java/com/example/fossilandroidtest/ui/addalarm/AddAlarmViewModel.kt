@@ -30,33 +30,19 @@ class AddAlarmViewModel : ViewModel() {
      * Call onDone callback to update UI
      * @param onDone callback when all process was done
      */
-    fun handleOnAddAlarm(onDone: () -> Unit) {
+    fun handleOnAddAlarm(onDone: (Alarm) -> Unit) {
         Log.d(TAG, "handleOnAddAlarm: Entry")
-        alarm.value?.let { alarm ->
+        _alarm.value?.let { alarm ->
             alarm.isEnable = true
             viewModelScope.launch(job) {
                 launch(Dispatchers.IO) {
-                    Log.d(TAG, "handleOnAddAlarm: Start scope")
-                    val insertedId = addAlarm(alarm)
-                    startScheduling(insertedId, alarm)
+                    Log.d(TAG, "handleOnAddAlarm: Start scope - Checking alarm $alarm")
+                    alarm.alarmId = addAlarm(alarm)
                     Log.d(TAG, "handleOnAddAlarm: End Scope")
                 }.join()
                 Log.d(TAG, "handleOnAddAlarm: Ready to callback")
-                onDone.invoke()
+                onDone.invoke(alarm)
             }
-        }
-    }
-
-    /**
-     * This function will start scheduling process
-     * @param insertedId ID of alarm inserted
-     * @param alarm handling alarm
-     */
-    private fun startScheduling(insertedId: Int, alarm: Alarm) {
-        Log.i(TAG, "startScheduling: Entry")
-        alarm.apply {
-            alarmId = insertedId
-
         }
     }
 
