@@ -7,14 +7,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fossilandroidtest.model.Alarm
 import com.example.fossilandroidtest.respository.AlarmRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.util.*
 
 class AddAlarmViewModel : ViewModel() {
+
     private val _alarm = MutableLiveData<Alarm>().apply {
         val calendar = Calendar.getInstance().apply { timeInMillis = System.currentTimeMillis() }
         value = Alarm(hour = calendar.get(Calendar.HOUR_OF_DAY), minute = calendar.get(Calendar.MINUTE))
     }
+
+    lateinit var alarmRepository: AlarmRepository
+
     val alarm: LiveData<Alarm>
         get() = _alarm
 
@@ -50,7 +56,7 @@ class AddAlarmViewModel : ViewModel() {
      * This function will add new alarm to database then return ID for scheduling alarm
      * @return Inserted ID of alarm
      */
-    private suspend fun addAlarm(alarm: Alarm) = AlarmRepository.insertAlarm(alarm).toInt()
+    private suspend fun addAlarm(alarm: Alarm) = alarmRepository.insertAlarm(alarm).toInt()
 
     override fun onCleared() {
         super.onCleared()

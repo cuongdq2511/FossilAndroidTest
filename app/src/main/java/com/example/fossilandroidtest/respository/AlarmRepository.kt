@@ -1,36 +1,31 @@
 package com.example.fossilandroidtest.respository
 
-import android.app.Application
-import androidx.lifecycle.MutableLiveData
-import com.example.fossilandroidtest.database.AlarmDatabase
-import com.example.fossilandroidtest.database.dao.AlarmDao
+import com.example.fossilandroidtest.database.AlarmDataSourceImpl
 import com.example.fossilandroidtest.model.Alarm
 
-class AlarmRepository {
+class AlarmRepository(private val alarmDataSource: AlarmDataSourceImpl): AlarmDataSource {
+
     companion object {
-        private val TAG = AlarmRepository::class.simpleName
 
-        private lateinit var alarmDao: AlarmDao
+        private val TAG = AlarmRepository::class.java.simpleName
 
-        private var alarmsLiveData: MutableLiveData<List<Alarm>> = MutableLiveData(listOf())
+        @Volatile
+        private var INSTANCE: AlarmRepository? = null
 
-        private lateinit var db: AlarmDatabase
-
-        fun initDatabase(application: Application) {
-            db = AlarmDatabase.getInstance(application.applicationContext)
-            alarmDao = db.getAlarmDao()
+        fun getInstance(dataSource: AlarmDataSourceImpl): AlarmRepository = INSTANCE ?: synchronized(this) {
+            INSTANCE ?: AlarmRepository(dataSource).also { INSTANCE = it }
         }
+    }
 
-        suspend fun getListAlarm() {
-            alarmDao.getListAlarm()
-        }
+    override suspend fun getListAlarm(): List<Alarm> {
+        return alarmDataSource.getListAlarm()
+    }
 
-        suspend fun insertAlarm(alarm: Alarm): Long {
-            return alarmDao.insertAlarm(alarm)
-        }
+    override suspend fun insertAlarm(alarm: Alarm): Long {
+        return alarmDataSource.insertAlarm(alarm)
+    }
 
-        suspend fun updateAlarm(alarm: Alarm) {
-            alarmDao.update(alarm)
-        }
+    override suspend fun updateAlarm(alarm: Alarm) {
+        alarmDataSource.updateAlarm(alarm)
     }
 }

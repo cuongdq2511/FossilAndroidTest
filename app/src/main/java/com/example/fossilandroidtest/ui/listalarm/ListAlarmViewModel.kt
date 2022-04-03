@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.fossilandroidtest.common.Event
 import com.example.fossilandroidtest.model.Alarm
+import com.example.fossilandroidtest.respository.AlarmRepository
 
 class ListAlarmViewModel : ViewModel() {
     private val _listAlarmResult = MutableLiveData<Event<List<Alarm>>>()
@@ -14,6 +15,8 @@ class ListAlarmViewModel : ViewModel() {
     private var _listAlarm = mutableListOf<Alarm>()
     val listAlarm: List<Alarm>
         get() = _listAlarm
+
+    lateinit var alarmRepository: AlarmRepository
 
     init {
         _listAlarm = mutableListOf(

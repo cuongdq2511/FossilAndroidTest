@@ -1,5 +1,6 @@
 package com.example.fossilandroidtest.ui.listalarm
 
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -9,8 +10,11 @@ import com.example.fossilandroidtest.R
 import com.example.fossilandroidtest.ui.listalarm.adapter.AlarmItemDecoration
 import com.example.fossilandroidtest.common.Constant
 import com.example.fossilandroidtest.common.Event
+import com.example.fossilandroidtest.database.AlarmDataSourceImpl
+import com.example.fossilandroidtest.database.AlarmDatabase
 import com.example.fossilandroidtest.databinding.FragmentListAlarmBinding
 import com.example.fossilandroidtest.model.Alarm
+import com.example.fossilandroidtest.respository.AlarmRepository
 import com.example.fossilandroidtest.ui.base.BaseFragment
 import com.example.fossilandroidtest.ui.listalarm.adapter.AlarmAdapter
 
@@ -33,6 +37,7 @@ class ListAlarmFragment : BaseFragment(R.layout.fragment_list_alarm) {
    override fun initInstance() {
       Log.i(TAG, "initInstance: Entry")
       alarmAdapter = AlarmAdapter()
+      viewModel.alarmRepository = repo
    }
 
    override fun initView(view: View) {

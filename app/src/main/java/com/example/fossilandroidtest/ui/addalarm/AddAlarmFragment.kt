@@ -2,6 +2,7 @@ package com.example.fossilandroidtest.ui.addalarm
 
 import android.annotation.SuppressLint
 import android.graphics.Rect
+import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -11,7 +12,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.fossilandroidtest.R
 import com.example.fossilandroidtest.common.Constant
 import com.example.fossilandroidtest.common.handleClearFocusEditText
+import com.example.fossilandroidtest.database.AlarmDataSourceImpl
+import com.example.fossilandroidtest.database.AlarmDatabase
 import com.example.fossilandroidtest.databinding.FragmentAddAlarmBinding
+import com.example.fossilandroidtest.respository.AlarmRepository
 import com.example.fossilandroidtest.ui.base.BaseFragment
 import java.util.*
 
@@ -23,6 +27,11 @@ class AddAlarmFragment : BaseFragment(R.layout.fragment_add_alarm) {
         get() = Constant.ADD_ALARM_TITLE_SCREEN
     override val isHideAddButton: Boolean
         get() = true
+
+    override fun initInstance() {
+        super.initInstance()
+        viewModel.alarmRepository = repo
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun initView(view: View) {

@@ -6,14 +6,12 @@ import android.app.NotificationManager
 import android.os.Build
 import android.util.Log
 import com.example.fossilandroidtest.common.Constant
-import com.example.fossilandroidtest.respository.AlarmRepository
 
 class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
         Log.i(TAG, "onCreate: Entry")
-        initRepository()
         initNotificationChannel()
     }
 
@@ -26,14 +24,6 @@ class App : Application() {
             val channel = NotificationChannel(Constant.CHANNEL_ID, Constant.CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
             getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
         }
-    }
-
-    /**
-     * This function will init database to handle data
-     */
-    private fun initRepository() {
-        Log.i(TAG, "initRepository: Entry")
-        AlarmRepository.initDatabase(this)
     }
 
     companion object {

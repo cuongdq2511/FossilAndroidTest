@@ -26,8 +26,7 @@ abstract class AlarmDatabase: RoomDatabase() {
             INSTANCE ?: buildDatabase(applicationContext).also { INSTANCE = it }
         }
 
-        private fun buildDatabase(applicationContext: Context) =
-            Room.databaseBuilder(applicationContext, AlarmDatabase::class.java, Constant.DATABASE_NAME)
+        private fun buildDatabase(applicationContext: Context) = Room.databaseBuilder(applicationContext, AlarmDatabase::class.java, Constant.DATABASE_NAME)
                 .fallbackToDestructiveMigration()
                 .addCallback(object : Callback() {
                     override fun onCreate(@NonNull db: SupportSQLiteDatabase) {

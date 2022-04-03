@@ -7,8 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.example.fossilandroidtest.R
+import com.example.fossilandroidtest.database.AlarmDataSourceImpl
+import com.example.fossilandroidtest.database.AlarmDatabase
+import com.example.fossilandroidtest.respository.AlarmRepository
 
 abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId) {
+
+    private lateinit var db : AlarmDatabase
+    lateinit var repo : AlarmRepository
 
     open val titleScreen: String = ""
     open val isHideBackButton: Boolean = false
@@ -20,6 +26,12 @@ abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
     open fun initListener() {}
 
     abstract fun onViewClick(view: View)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        db = AlarmDatabase.getInstance(requireContext().applicationContext)
+        repo = AlarmRepository.getInstance(AlarmDataSourceImpl.getInstance(db.getAlarmDao()))
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

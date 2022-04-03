@@ -7,9 +7,13 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fossilandroidtest.database.AlarmDataSourceImpl
+import com.example.fossilandroidtest.database.AlarmDatabase
 import com.example.fossilandroidtest.model.Alarm
+import com.example.fossilandroidtest.respository.AlarmRepository
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i(TAG, "onCreate: Entry")
