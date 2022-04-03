@@ -15,7 +15,7 @@ abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
     open val isHideAddButton: Boolean = false
 
     abstract fun initInstance()
-    abstract fun initView()
+    abstract fun initView(view: View)
     abstract fun initObserver()
     abstract fun initListener()
 
@@ -24,7 +24,7 @@ abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initInstance()
-        initView()
+        initView(view)
         initObserver()
         initListener()
     }

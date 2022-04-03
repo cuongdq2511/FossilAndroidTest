@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.example.fossilandroidtest.model.Alarm" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/background_item_radius_corner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glLeft_5"
+            style="@style/CustomStyle.Guideline.Left_5"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glRight_95"
+            style="@style/CustomStyle.Guideline.Right_95"/>
+
+        <TextView
+            android:id="@+id/txtAlarmName"
+            style="@style/CustomStyle.Text.TextContent_16"
+            app:layout_constraintBottom_toTopOf="@+id/txtTime"
+            app:layout_constraintStart_toEndOf="@id/glLeft_5"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{item.name}"
+            app:layout_constraintVertical_chainStyle="spread"
+            tools:text="Go to work" />
+
+        <TextView
+            android:id="@+id/txtTime"
+            style="@style/CustomStyle.Text.TextTitle_30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/glLeft_5"
+            android:text="@{item.getTime()}"
+            app:layout_constraintTop_toBottomOf="@+id/txtAlarmName"
+            tools:text="06:00" />
+
+        <TextView
+            android:id="@+id/txtDay"
+            style="@style/CustomStyle.Text.TextContent_14"
+            android:layout_width="0dp"
+            android:layout_marginEnd="10dp"
+            android:text="@{item.getDayText()}"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/scEnable"
+            app:layout_constraintStart_toEndOf="@+id/txtTime"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Every day" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/scEnable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:thumb="@drawable/background_thumb_switch"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:checked="@{item.isEnable()}"
+            app:layout_constraintEnd_toStartOf="@id/glRight_95"
+            app:layout_constraintTop_toTopOf="parent"
+            app:track="@drawable/background_track_switch" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

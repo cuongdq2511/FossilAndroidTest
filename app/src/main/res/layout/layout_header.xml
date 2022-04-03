@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <import type="kotlin.jvm.functions.Function1" />
+
+        <import type="kotlin.Unit" />
+
+        <variable
+            name="onClick"
+            type="Function1&lt;View, Unit>" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="isDisableBack"
+            type="Boolean" />
+
+        <variable
+            name="isDisableAdd"
+            type="Boolean" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glLeft_5"
+            style="@style/CustomStyle.Guideline.Left_5"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glRight_95"
+            style="@style/CustomStyle.Guideline.Right_95"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_title_back"
+            app:gone="@{isDisableBack}"
+            tools:visibility="visible"
+            app:layout_constraintStart_toEndOf="@id/glLeft_5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/CustomStyle.Text.TextTitle_19"
+            android:text="@{title}"
+            android:layout_marginStart="@dimen/dimen_15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Title"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_add_alarm"
+            android:onClick="@{view -> onClick.invoke(view)}"
+            app:gone="@{isDisableAdd}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/glRight_95"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

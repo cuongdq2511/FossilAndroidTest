@@ -1,14 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.ListAlarmFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <variable
+            name="vm"
+            type="com.example.fossilandroidtest.ui.listalarm.ListAlarmViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.example.fossilandroidtest.ui.listalarm.ListAlarmFragment" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/screen_background"
+        android:orientation="vertical"
+        tools:context=".ui.listalarm.ListAlarmFragment">
 
-</FrameLayout>
+        <include
+            android:id="@+id/layoutHeader"
+            layout="@layout/layout_header"
+            android:layout_width="match_parent"
+            app:onClick="@{fragment::onViewClick}"
+            app:title="@{fragment.titleScreen}"
+            app:isDisableBack="@{fragment.isHideBackButton}"
+            app:isDisableAdd="@{fragment.isHideAddButton}"
+            android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAlarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_alarm"
+            tools:visibility="visible"/>
+
+    </LinearLayout>
+</layout>

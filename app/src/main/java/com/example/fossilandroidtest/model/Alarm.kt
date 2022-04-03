@@ -12,8 +12,18 @@ import java.util.*
 
 data class Alarm(
     val alarmId: Int = -1,
+    val name: String = "",
     var hour: Int = -1,
-    var minute: Int = -1
+    var minute: Int = -1,
+    var isEnable: Boolean = false,
+    var isRepeatMon: Boolean = false,
+    var isRepeatTue: Boolean = false,
+    var isRepeatWed: Boolean = false,
+    var isRepeatThu: Boolean = false,
+    var isRepeatFri: Boolean = false,
+    var isRepeatSat: Boolean = false,
+    var isRepeatSun: Boolean = false,
+    var createdTime: Long = 0
 ) {
 
     /**
@@ -61,6 +71,42 @@ data class Alarm(
         if (timeInMillis <= System.currentTimeMillis()) {
             Log.d(TAG, "initCalendar: Is over current time")
             set(Calendar.DAY_OF_MONTH, get(Calendar.DAY_OF_MONTH) + 1)
+        }
+    }
+
+    /**
+     * This function will get time text
+     */
+    fun getTime() = "$hour:$minute"
+
+    /**
+     * This function will check is alarm every in week or not
+     */
+    private fun isEveryDay() = isRepeatMon && isRepeatTue && isRepeatWed && isRepeatThu && isRepeatFri && isRepeatSat && isRepeatSun
+
+    /**
+     * This function will get item day which set for repeat alarm
+     */
+    fun getDayText(): String {
+        return if (isEveryDay()) Constant.EVERY_DAY else getSpecificRepeatDay()
+    }
+
+    /**
+     * This function will get specific day set by user then return text show it
+     * @return String - all day included
+     */
+    private fun getSpecificRepeatDay(): String {
+        return with(Constant) {
+            var days = ""
+            if (isRepeatMon) days += "$MONDAY "
+            if (isRepeatTue) days += "$TUESDAY "
+            if (isRepeatWed) days += "$WEDNESDAY "
+            if (isRepeatThu) days += "$THURSDAY "
+            if (isRepeatFri) days += "$FRIDAY "
+            if (isRepeatSat) days += "$SATURDAY "
+            if (isRepeatSun) days += "$SUNDAY "
+            Log.d(TAG, "getSpecificRepeatDay: Checking result $days")
+            days.dropLast(1)
         }
     }
 

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- Text's Style -->
+
+    <style name="CustomStyle.Text.Base" parent="CustomStyle">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- Text Title -->
+
+    <style name="CustomStyle.Text.TextTitle_Base" parent="CustomStyle.Text.Base">
+        <item name="android:textColor">@color/text_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CustomStyle.Text.TextTitle_16" parent="CustomStyle.Text.TextTitle_Base">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CustomStyle.Text.TextTitle_19" parent="CustomStyle.Text.TextTitle_Base">
+        <item name="android:textSize">19sp</item>
+    </style>
+
+    <style name="CustomStyle.Text.TextTitle_30" parent="CustomStyle.Text.TextTitle_Base">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <!-- Text Content -->
+
+    <style name="CustomStyle.Text.TextContent_Base" parent="CustomStyle.Text.Base">
+        <item name="android:textColor">@color/text_content</item>
+    </style>
+
+    <style name="CustomStyle.Text.TextContent_14" parent="CustomStyle.Text.TextContent_Base">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="CustomStyle.Text.TextContent_16" parent="CustomStyle.Text.TextContent_Base">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CustomStyle.Text.TextContent_30" parent="CustomStyle.Text.TextContent_Base">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="CustomStyle.Text.TextContent_20" parent="CustomStyle.Text.TextContent_Base">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="CustomStyle.Text.TextContent_20.Blue" parent="CustomStyle.Text.TextContent_20">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="CustomStyle.Text.TextContent_30.Blue" parent="CustomStyle.Text.TextContent_30">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <!-- Guideline's Style-->
+
+    <style name="CustomStyle.Guideline.Vertical" parent="CustomStyle">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="CustomStyle.Guideline.Horizontal" parent="CustomStyle">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!-- Guideline Vertical -->
+
+    <style name="CustomStyle.Guideline.Left_5" parent="CustomStyle.Guideline.Vertical">
+        <item name="layout_constraintGuide_percent">0.05</item>
+    </style>
+
+    <style name="CustomStyle.Guideline.Right_95" parent="CustomStyle.Guideline.Vertical">
+        <item name="layout_constraintGuide_percent">0.95</item>
+    </style>
+
+    <!-- Guideline Horizontal -->
+
+    <style name="CustomStyle.Guideline.Top_5" parent="CustomStyle.Guideline.Horizontal">
+        <item name="layout_constraintGuide_percent">0.05</item>
+    </style>
+
+    <style name="CustomStyle.Guideline.Bottom_95" parent="CustomStyle.Guideline.Horizontal">
+        <item name="layout_constraintGuide_percent">0.95</item>
+    </style>
+
+
+
+
+</resources>
