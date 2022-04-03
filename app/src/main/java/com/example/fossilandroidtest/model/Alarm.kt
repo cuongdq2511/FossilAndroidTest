@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import com.example.fossilandroidtest.common.Constant
 import com.example.fossilandroidtest.receiver.AlarmBroadcastReceiver
 import java.util.*
@@ -16,16 +17,33 @@ data class Alarm(
     var minute: Int = -1
 ) {
 
-    fun schedule(context: Context) {
+    /**
+     * This function will set Alarm Manager for scheduling alarm by specific AlarmId
+     * It will send broadcast message to AlarmBroadcastReceiver when time up
+     * @param context
+     */
+    fun scheduleAlarm(context: Context) {
         Log.i(TAG, "schedule: Entry - Checking Alarm: $this")
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmBroadcastReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, initCalendar().timeInMillis, pendingIntent)
+        Toast.makeText(context, "Start alarm at $hour - $minute successlly!", Toast.LENGTH_SHORT).show()
         Log.i(TAG, "schedule: End")
     }
 
-    fun cancel(context: Context) {
+    /**
+     * This function will cancel AlarmManager by specific AlarmID
+     * @param context
+     */
+    fun cancelAlarm(context: Context) {
+        Log.i(TAG, "cancel: Entry - Checking Alarm: $this")
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmBroadcastReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0)
+        alarmManager.cancel(pendingIntent)
+        Toast.makeText(context, "Cancel alarm at $hour - $minute successlly!", Toast.LENGTH_SHORT).show()
+        Log.i(TAG, "cancelAlarm: End")
     }
 
 
